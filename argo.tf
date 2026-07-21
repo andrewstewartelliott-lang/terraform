@@ -1,9 +1,9 @@
 data "http" "argo_base_manifest" {
-  url = "https://raw.githubusercontent.com/andrewstewartelliott-lang/argocd/main/argo/base/base.yaml"
+  url = var.argo_manifest_url
 }
 
 data "http" "k8s_viewer_cluster_role_manifest" {
-  url = "https://raw.githubusercontent.com/andrewstewartelliott-lang/argocd/main/argo/applications/k8s-viewer/clusterRole.yaml"
+  url = var.k8s_viewer_cluster_role_url
 }
 
 resource "null_resource" "apply_argo_base" {

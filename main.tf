@@ -9,6 +9,33 @@ resource "kind_cluster" "default" {
 
     node {
       role = "control-plane"
+
+      kubeadm_config_patches = [
+        <<-EOT
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+        EOT
+      ]
+
+      extra_port_mappings {
+        container_port = 80
+        host_port      = 80
+        protocol       = "TCP"
+      }
+
+      extra_port_mappings {
+        container_port = 8080
+        host_port      = 8080
+        protocol       = "TCP"
+      }
+
+      extra_port_mappings {
+        container_port = 443
+        host_port      = 443
+        protocol       = "TCP"
+      }
     }
 
     node {

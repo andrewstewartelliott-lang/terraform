@@ -13,5 +13,5 @@ variable "api_version" {
 variable "node_image" {
   description = "The node image for the kind cluster"
   type        = string
-  default     = "kindest/node:v1.27.1"
+  default     = "kindest/node:v1.36.1"
 }

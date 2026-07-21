@@ -24,17 +24,11 @@ terraform {
 }
 
 provider "kubernetes" {
-  host                   = kind_cluster.default.endpoint
-  cluster_ca_certificate = base64decode(kind_cluster.default.cluster_ca_certificate)
-  client_certificate     = base64decode(kind_cluster.default.client_certificate)
-  client_key             = base64decode(kind_cluster.default.client_key)
+  config_path = kind_cluster.default.kubeconfig_path
 }
 
 provider "helm" {
   kubernetes {
-    host                   = kind_cluster.default.endpoint
-    cluster_ca_certificate = base64decode(kind_cluster.default.cluster_ca_certificate)
-    client_certificate     = base64decode(kind_cluster.default.client_certificate)
-    client_key             = base64decode(kind_cluster.default.client_key)
+    config_path = kind_cluster.default.kubeconfig_path
   }
 }

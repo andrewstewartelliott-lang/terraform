@@ -1,18 +1,10 @@
-resource "kubernetes_namespace" "argocd" {
-  metadata {
-    name = "argocd"
-  }
-
-  depends_on = [kind_cluster.default]
-}
-
 resource "helm_release" "argocd" {
   name       = "argocd"
-  namespace  = kubernetes_namespace.argocd.metadata[0].name
+  namespace  = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
 
-  create_namespace = false
+  create_namespace = true
 
   set {
     name  = "redis.exporter.enabled"
@@ -34,5 +26,5 @@ resource "helm_release" "argocd" {
     value = "true"
   }
 
-  depends_on = [kubernetes_namespace.argocd]
+  depends_on = [kind_cluster.default]
 }
